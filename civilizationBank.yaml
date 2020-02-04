@@ -1,0 +1,261 @@
+name: "global-trade-network"
+
+x-type: "hlfv1"
+x-loggingLevel: info
+
+description: "The network to be in if you want to stay in the global trade business"
+
+version: 1.0.0
+
+client:
+
+  organization: 73c3675198322ae96da2e404fb4c71e51978f3bf
+
+  logging:
+    level: info
+
+  peer:
+    timeout:
+      connection: 10s
+      queryResponse: 45s
+      executeTxResponse: 120s
+  eventService:
+    timeout:
+      connection: 10s
+      registrationResponse: 50s
+  orderer:
+    timeout:
+      connection: 10s
+      response: 45s
+
+  cryptoconfig:
+    path: /opt/gopath/src/github.com/hyperledger/fabric
+
+  credentialStore:
+    path: "/tmp/hfc-kvs"
+
+    cryptoStore:
+      path: /tmp/msp
+
+    wallet: wallet-name
+
+  BCCSP:
+    security:
+     enabled: true
+     default:
+      provider: "SW"
+     hashAlgorithm: "SHA2"
+     softVerify: true
+     ephemeral: false
+     level: 256
+
+channels:
+  
+  testchannel:
+    orderers:
+      
+      - orderer-c8dafce4ea5d4193244321765b5113fd59b59735-0.orderer-c8dafce4ea5d4193244321765b5113fd59b59735.default.svc.cluster.local
+      
+    peers:
+      
+      peer-73c3675198322ae96da2e404fb4c71e51978f3bf-0.peer-73c3675198322ae96da2e404fb4c71e51978f3bf.default.svc.cluster.local:30610:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      
+      peer-73c3675198322ae96da2e404fb4c71e51978f3bf-1.peer-73c3675198322ae96da2e404fb4c71e51978f3bf.default.svc.cluster.local:30611:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      
+      peer-c10bba0b8207798f2786f48de4c2262445018c37-0.peer-c10bba0b8207798f2786f48de4c2262445018c37.default.svc.cluster.local:30605:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      
+      peer-c10bba0b8207798f2786f48de4c2262445018c37-1.peer-c10bba0b8207798f2786f48de4c2262445018c37.default.svc.cluster.local:30606:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      
+      peer-7530799a15bed6e504bbe010e04fab5315da4237-0.peer-7530799a15bed6e504bbe010e04fab5315da4237.default.svc.cluster.local:30615:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      
+      peer-7530799a15bed6e504bbe010e04fab5315da4237-1.peer-7530799a15bed6e504bbe010e04fab5315da4237.default.svc.cluster.local:30616:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      
+    chaincodes:
+      - fabbank:1.0
+  
+organizations:
+  
+  73c3675198322ae96da2e404fb4c71e51978f3bf:
+    mspid: 73c3675198322ae96da2e404fb4c71e51978f3bfMSP
+
+    cryptoPath:  /opt/bank/src/bank/conf/crypto/73c3675198322ae96da2e404fb4c71e51978f3bf.peer/msp
+    tlsCryptoKeyPath: /opt/bank/src/bank/conf/crypto/73c3675198322ae96da2e404fb4c71e51978f3bf.peer/tls/server.key
+    tlsCryptoCertPath: /opt/bank/src/bank/conf/crypto/73c3675198322ae96da2e404fb4c71e51978f3bf.peer/tls/server.crt
+
+    peers:
+      
+      - peer-73c3675198322ae96da2e404fb4c71e51978f3bf-0.peer-73c3675198322ae96da2e404fb4c71e51978f3bf.default.svc.cluster.local:30610
+      
+      - peer-73c3675198322ae96da2e404fb4c71e51978f3bf-1.peer-73c3675198322ae96da2e404fb4c71e51978f3bf.default.svc.cluster.local:30611
+      
+    certificateAuthorities:
+      - ca-org1
+  
+  7530799a15bed6e504bbe010e04fab5315da4237:
+    mspid: 7530799a15bed6e504bbe010e04fab5315da4237MSP
+
+    cryptoPath:  /opt/bank/src/bank/conf/crypto/7530799a15bed6e504bbe010e04fab5315da4237.peer/msp
+    tlsCryptoKeyPath: /opt/bank/src/bank/conf/crypto/7530799a15bed6e504bbe010e04fab5315da4237.peer/tls/server.key
+    tlsCryptoCertPath: /opt/bank/src/bank/conf/crypto/7530799a15bed6e504bbe010e04fab5315da4237.peer/tls/server.crt
+
+    peers:
+      
+      - peer-7530799a15bed6e504bbe010e04fab5315da4237-0.peer-7530799a15bed6e504bbe010e04fab5315da4237.default.svc.cluster.local:30615
+      
+      - peer-7530799a15bed6e504bbe010e04fab5315da4237-1.peer-7530799a15bed6e504bbe010e04fab5315da4237.default.svc.cluster.local:30616
+      
+    certificateAuthorities:
+      - ca-org1
+  
+  c10bba0b8207798f2786f48de4c2262445018c37:
+    mspid: c10bba0b8207798f2786f48de4c2262445018c37MSP
+
+    cryptoPath:  /opt/bank/src/bank/conf/crypto/c10bba0b8207798f2786f48de4c2262445018c37.peer/msp
+    tlsCryptoKeyPath: /opt/bank/src/bank/conf/crypto/c10bba0b8207798f2786f48de4c2262445018c37.peer/tls/server.key
+    tlsCryptoCertPath: /opt/bank/src/bank/conf/crypto/c10bba0b8207798f2786f48de4c2262445018c37.peer/tls/server.crt
+
+    peers:
+      
+      - peer-c10bba0b8207798f2786f48de4c2262445018c37-0.peer-c10bba0b8207798f2786f48de4c2262445018c37.default.svc.cluster.local:30605
+      
+      - peer-c10bba0b8207798f2786f48de4c2262445018c37-1.peer-c10bba0b8207798f2786f48de4c2262445018c37.default.svc.cluster.local:30606
+      
+    certificateAuthorities:
+      - ca-org1
+  
+  ordererorg:
+      mspID: "c8dafce4ea5d4193244321765b5113fd59b59735MSP"
+
+      cryptoPath: /opt/bank/src/bank/conf/crypto/c8dafce4ea5d4193244321765b5113fd59b59735.orderer/msp
+orderer-eip: 159.138.119.29
+orderers:
+  
+  orderer-c8dafce4ea5d4193244321765b5113fd59b59735-0.orderer-c8dafce4ea5d4193244321765b5113fd59b59735.default.svc.cluster.local:
+    url: grpcs://159.138.119.29:30805
+
+    grpcOptions:
+      ssl-target-name-override: orderer-c8dafce4ea5d4193244321765b5113fd59b59735-0.orderer-c8dafce4ea5d4193244321765b5113fd59b59735.default.svc.cluster.local
+      grpc-max-send-message-length: 15
+
+    tlsCACerts:
+      path: /opt/bank/src/bank/conf/crypto/c8dafce4ea5d4193244321765b5113fd59b59735.orderer/msp/tlscacerts/tlsca.c8dafce4ea5d4193244321765b5113fd59b59735-cert.pem
+  
+peers:
+  
+  
+  peer-73c3675198322ae96da2e404fb4c71e51978f3bf-0.peer-73c3675198322ae96da2e404fb4c71e51978f3bf.default.svc.cluster.local:30610:
+  
+    
+    url: grpcs://159.138.119.29:30610
+    
+    grpcOptions:
+      ssl-target-name-override: peer-73c3675198322ae96da2e404fb4c71e51978f3bf-0.peer-73c3675198322ae96da2e404fb4c71e51978f3bf.default.svc.cluster.local
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: /opt/bank/src/bank/conf/crypto/73c3675198322ae96da2e404fb4c71e51978f3bf.peer/msp/tlscacerts/tlsca.73c3675198322ae96da2e404fb4c71e51978f3bf-cert.pem
+  
+  
+  peer-73c3675198322ae96da2e404fb4c71e51978f3bf-1.peer-73c3675198322ae96da2e404fb4c71e51978f3bf.default.svc.cluster.local:30611:
+  
+    
+    url: grpcs://159.138.119.29:30611
+    
+    grpcOptions:
+      ssl-target-name-override: peer-73c3675198322ae96da2e404fb4c71e51978f3bf-1.peer-73c3675198322ae96da2e404fb4c71e51978f3bf.default.svc.cluster.local
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: /opt/bank/src/bank/conf/crypto/73c3675198322ae96da2e404fb4c71e51978f3bf.peer/msp/tlscacerts/tlsca.73c3675198322ae96da2e404fb4c71e51978f3bf-cert.pem
+  
+  
+  peer-c10bba0b8207798f2786f48de4c2262445018c37-0.peer-c10bba0b8207798f2786f48de4c2262445018c37.default.svc.cluster.local:30605:
+  
+    
+    url: grpcs://159.138.119.29:30605
+    
+    grpcOptions:
+      ssl-target-name-override: peer-c10bba0b8207798f2786f48de4c2262445018c37-0.peer-c10bba0b8207798f2786f48de4c2262445018c37.default.svc.cluster.local
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: /opt/bank/src/bank/conf/crypto/c10bba0b8207798f2786f48de4c2262445018c37.peer/msp/tlscacerts/tlsca.c10bba0b8207798f2786f48de4c2262445018c37-cert.pem
+  
+  
+  peer-c10bba0b8207798f2786f48de4c2262445018c37-1.peer-c10bba0b8207798f2786f48de4c2262445018c37.default.svc.cluster.local:30606:
+  
+    
+    url: grpcs://159.138.119.29:30606
+    
+    grpcOptions:
+      ssl-target-name-override: peer-c10bba0b8207798f2786f48de4c2262445018c37-1.peer-c10bba0b8207798f2786f48de4c2262445018c37.default.svc.cluster.local
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: /opt/bank/src/bank/conf/crypto/c10bba0b8207798f2786f48de4c2262445018c37.peer/msp/tlscacerts/tlsca.c10bba0b8207798f2786f48de4c2262445018c37-cert.pem
+  
+  
+  peer-7530799a15bed6e504bbe010e04fab5315da4237-0.peer-7530799a15bed6e504bbe010e04fab5315da4237.default.svc.cluster.local:30615:
+  
+    
+    url: grpcs://159.138.119.29:30615
+    
+    grpcOptions:
+      ssl-target-name-override: peer-7530799a15bed6e504bbe010e04fab5315da4237-0.peer-7530799a15bed6e504bbe010e04fab5315da4237.default.svc.cluster.local
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: /opt/bank/src/bank/conf/crypto/7530799a15bed6e504bbe010e04fab5315da4237.peer/msp/tlscacerts/tlsca.7530799a15bed6e504bbe010e04fab5315da4237-cert.pem
+  
+  
+  peer-7530799a15bed6e504bbe010e04fab5315da4237-1.peer-7530799a15bed6e504bbe010e04fab5315da4237.default.svc.cluster.local:30616:
+  
+    
+    url: grpcs://159.138.119.29:30616
+    
+    grpcOptions:
+      ssl-target-name-override: peer-7530799a15bed6e504bbe010e04fab5315da4237-1.peer-7530799a15bed6e504bbe010e04fab5315da4237.default.svc.cluster.local
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: /opt/bank/src/bank/conf/crypto/7530799a15bed6e504bbe010e04fab5315da4237.peer/msp/tlscacerts/tlsca.7530799a15bed6e504bbe010e04fab5315da4237-cert.pem
+  
+certificateAuthorities:
+  ca-org1:
+    url: https://ca_peerOrg1:7054
+    httpOptions:
+      verify: true
+    tlsCACerts:
+      path: $GOPATH/src/github.com/hyperledger/fabric-sdk-go/test/api-server/tls/fabricca/certs/ca_root.pem
+      client:
+       keyfile: $GOPATH/src/github.com/hyperledger/fabric-sdk-go/test/api-server/tls/fabricca/certs/client/client_fabric_client-key.pem
+       certfile: $GOPATH/src/github.com/hyperledger/fabric-sdk-go/test/api-server/tls/fabricca/certs/client/client_fabric_client.pem
+
+    registrar:
+      enrollId: admin
+      enrollSecret: adminpw
+    caName: ca-org1
